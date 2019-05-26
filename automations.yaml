@@ -1,0 +1,72 @@
+# Automation for Dhuhr, Asr, Maghrib, and Isha Adhan
+- action:
+  - alias: ''
+    data:
+      entity_id: !secret speaker_id1   # replace with your Google Home's id
+      media_content_id: https://www.youtube.com/watch?v=ADLO-Hm_nCQ   # replace with your choice of Adhan
+      media_content_type: youtube
+    service: media_extractor.play_media
+  - data:
+      entity_id: !secret speaker_id1   # replace with your Google Home's id
+      volume_level: '0.42'
+    service: media_player.volume_set
+  alias: Adhan
+  condition: []
+  id: '1517693010922'
+  trigger:
+  - platform: template
+    value_template: '{{states.salat.dhuhr.state == states.sensor.time.state}}'
+  - platform: template
+    value_template: '{{states.salat.asr.state == states.sensor.time.state}}'
+  - platform: template
+    value_template: '{{states.salat.maghrib.state == states.sensor.time.state}}'
+  - platform: template
+    value_template: '{{states.salat.isha.state == states.sensor.time.state}}'
+
+# Separate Automation for Fajr Adhan
+- action:
+  - data:
+      entity_id: !secret speaker_id1   # replace with your Google Home's id
+      media_content_id: https://www.youtube.com/watch?v=VHcRTIcRvN8   # replace with your choice of Fajr Adhan
+      media_content_type: youtube
+    service: media_extractor.play_media
+  - data:
+      entity_id: !secret speaker_id1   # replace with your Google Home's id
+      volume_level: '0.72'
+    service: media_player.volume_set
+  alias: Fajr Adhan
+  condition: []
+  id: '1517694139112'
+  trigger:
+  - platform: template
+    value_template: '{{states.salat.fajr.state == states.sensor.time.state}}'
+    
+# Automation for Prayer time end
+- action:
+    # data:
+    #   message: 'Tick.'
+    # service: tts.google_translate_say
+  - alias: ''
+    data:
+      entity_id: !secret speaker_id1   # replace with your Google Home's id
+      media_content_id: https://www.youtube.com/watch?v=qwtAD1uERbQ  # replace with your choice of Adhan
+      media_content_type: youtube
+    service: media_extractor.play_media
+  - data:
+      entity_id: !secret speaker_id1   # replace with your Google Home's id
+      volume_level: '0.42'
+    service: media_player.volume_set
+  alias: Iqamah - Last Call
+  condition: []
+  id: '1517693013222'
+  trigger:
+  - platform: template
+    value_template: '{{states.salat.fajr_end.state == states.sensor.time.state}}'
+  - platform: template
+    value_template: '{{states.salat.dhuhr_end.state == states.sensor.time.state}}'
+  - platform: template
+    value_template: '{{states.salat.asr_end.state == states.sensor.time.state}}'
+  - platform: template
+    value_template: '{{states.salat.maghrib_end.state == states.sensor.time.state}}'
+  - platform: template
+    value_template: '{{states.salat.isha_end.state == states.sensor.time.state}}'

@@ -1,0 +1,15 @@
+secrets: /config/secrets.yaml
+log:
+  logfile: STDOUT
+  errorfile: STDERR
+appdaemon:
+  threads: 10
+  app_dir: /config/appdaemon/apps
+  plugins:
+    HASS:
+      type: hass
+      ha_url: http://hassio/homeassistant
+      token: 039585431e27352fa60168a913a9ab3f9116a36f194e61b3c012d163bce4ea2502bbdc628ced2fe0e1976c7e1f89dcd9bffd94e7ee01ca20
+hadashboard:
+  dash_url: http://127.0.0.1:5050
+  dash_dir: /config/appdaemon/dashboards

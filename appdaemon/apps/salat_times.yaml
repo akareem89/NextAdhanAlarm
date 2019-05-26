@@ -1,0 +1,4 @@
+---
+get_salat_times:
+  module: salat_times
+  class: SalatTimes
